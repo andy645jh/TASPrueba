@@ -4,9 +4,7 @@ import java.util.List;
 
 
 public class ScheduleJob {
-	
-
-	private int days;
+		
 	private int cantidad;
 	private List<Integer> items;
 	
@@ -36,15 +34,7 @@ public class ScheduleJob {
 		acum += val;
 		if(acum < 60 && list.size()>0) backTracking(list, val, acum);		
 	}
-	
 
-	public int getDays() {
-		return days;
-	}
-
-	public void setDays(int days) {
-		this.days = days;
-	}
 	
 	public int getDuration() {
 		return cantidad;
@@ -61,12 +51,12 @@ public class ScheduleJob {
 	public void setItems(List<Integer> items) {
 		this.items = items;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + days;
+		result = prime * result + cantidad;
 		result = prime * result + ((items == null) ? 0 : items.hashCode());
 		return result;
 	}
@@ -80,7 +70,7 @@ public class ScheduleJob {
 		if (getClass() != obj.getClass())
 			return false;
 		ScheduleJob other = (ScheduleJob) obj;
-		if (days != other.days)
+		if (cantidad != other.cantidad)
 			return false;
 		if (items == null) {
 			if (other.items != null)
@@ -92,7 +82,9 @@ public class ScheduleJob {
 
 	@Override
 	public String toString() {
-		return "ScheduleJob [days=" + days + ", items=" + items + "]";
+		return "ScheduleJob [cantidad=" + cantidad + ", items=" + items + "]";
 	}
+	
+
 
 }
