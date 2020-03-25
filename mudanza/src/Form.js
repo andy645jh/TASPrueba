@@ -15,25 +15,31 @@ class Form extends Component {
     }
 
     onChangeHandler(event) {
-        console.log(event.target.files[0]);   
-        this.props.fileSelected(event.target.files[0]);     
+        console.log(event.target.files[0]);
+        this.props.fileSelected(event.target.files[0]);
     }
 
     onClickHandler(e) {
         e.preventDefault();
         const file = store.getState().file;
 
-        if (this.existCedula() || !file) return;
+        if (this.existCedula() || !file) {
+            this.cedula.current.value = 0;
+            return;
+        }
 
-        
+
         this.fileUpload(file).then(res => {
             console.log("Recibido: ", res);
+            this.props.fileSelected(null);
+            this.cedula.current.value = '';
             this.getAllPeople();
         });
     }
 
     fileUpload(file) {
-        const url = 'http://localhost:8080/mudanza/up';
+        const url = 'http://localhost:8080/upload';
+        
         const formData = new FormData();
         formData.append("cedula", this.cedula.current.value);
         formData.append('file', file);
@@ -42,19 +48,24 @@ class Form extends Component {
                 'content-type': 'multipart/form-data'
             }
         }
+
         return post(url, formData, config);
     }
 
     getAllPeople() {
         axios.get('http://localhost:8080/mudanza/').then(res => {
-            //this.setState({ people: res.data });
+            
             this.props.updatePeopleList(res.data);
             console.log("Personas: ", res);
         });
-    }   
+    }
 
     existCedula() {
         const ced = parseInt(this.cedula.current.value);
+
+        //validar q sea un numero positivo
+        if (ced < 0) return true;
+
         const result = this.props.peopleList.find(persona => persona.cedula === ced);
         return result;
     }
@@ -62,11 +73,17 @@ class Form extends Component {
     render() {
         return (
             <section className="row">
-                <div className="row">
-                    <form>
-                        <input type="number" ref={this.cedula} placeholder="Ingrese su Cedula" />
-                        <input type="file" name="file" onChange={(e) => this.onChangeHandler(e)} />
-                        <button type="button" className="btn btn-success btn-block" onClick={(e) => this.onClickHandler(e)}>Subir</button>
+                <div className="col">
+                    <form className="form-group">
+                        <div className="form-row">
+                            <input className="form-control mb-3" type="number" ref={this.cedula} placeholder="Ingrese su Cedula" />
+                        </div>
+                        <div className="form-row">
+                            <input className="form-control mb-3" type="file" name="file" onChange={(e) => this.onChangeHandler(e)} />
+                        </div>
+                        <div className="form-row">
+                            <button type="button" className="form-control mb-3 btn btn-success btn-block" onClick={(e) => this.onClickHandler(e)}>Subir</button>
+                        </div>
                     </form>
                 </div>
             </section>
@@ -80,14 +97,14 @@ const mapStateProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    updatePeopleList (people){
+    updatePeopleList(people) {
         dispatch({
             type: 'UPDATE_LIST',
             people
         });
     },
 
-    fileSelected (file){
+    fileSelected(file) {
         dispatch({
             type: 'SET_FILE',
             file

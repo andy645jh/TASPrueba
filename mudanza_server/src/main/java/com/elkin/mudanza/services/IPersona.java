@@ -7,4 +7,5 @@ import com.elkin.mudanza.entities.Persona;
 public interface IPersona {
 	Persona save(Persona p);
 	List<Persona> getAll();	
+	Persona findById(Long id);
 }

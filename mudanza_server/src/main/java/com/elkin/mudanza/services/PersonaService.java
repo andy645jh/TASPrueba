@@ -24,6 +24,7 @@ public class PersonaService implements IPersona {
 			Persona p = new Persona();
 			p.setCedula(i);
 			p.setFecha(new Date());
+			p.setResultado("Case #1: "+i);
 			repository.save(p);
 		}
 	}
@@ -36,6 +37,11 @@ public class PersonaService implements IPersona {
 	@Override
 	public List<Persona> getAll() {		
 		return (List<Persona>) repository.findAll();
+	}
+
+	@Override
+	public Persona findById(Long id) {
+		return (Persona) repository.findById(id).get();
 	}
 	
 }

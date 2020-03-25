@@ -17,8 +17,7 @@ public class ScheduleJob {
 	}
 	
 	public void ProccesJob()
-	{	
-		
+	{			
 		this.cantidad = 0;
 		while(items.size()>0)
 		{					

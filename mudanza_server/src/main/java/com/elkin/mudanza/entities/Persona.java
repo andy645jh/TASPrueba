@@ -25,6 +25,9 @@ public class Persona {
 	@Column(name="fecha")
 	private Date fecha;
 	
+	@Column(name="resultado")
+	private String resultado;
+	
 	public Persona() {}	
 
 	@Override
@@ -54,5 +57,15 @@ public class Persona {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public String getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
 	}	
+	
+	
 }

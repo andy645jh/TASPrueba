@@ -12,19 +12,4 @@ public class MudanzaServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MudanzaServerApplication.class, args);
 	}
-
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-	        return new WebMvcConfigurer() {
-	                @Override
-	                public void addCorsMappings(CorsRegistry registry) {
-	                        registry.addMapping("/producto/**")
-	                                .allowedOrigins("http://localhost:3000")
-	                                .allowedMethods("GET", "POST", "PUT", "DELETE")
-	                                .maxAge(3600);
-	                }
-
-	        };
-	}
-
 }
