@@ -19,14 +19,14 @@ public class PersonaService implements IPersona {
 	@PostConstruct
 	private void init()
 	{
-		for(int i=0; i<10; i++)
+		/*for(int i=0; i<10; i++)
 		{
 			Persona p = new Persona();
 			p.setCedula(i);
 			p.setFecha(new Date());
 			p.setResultado("Case #1: "+i);
 			repository.save(p);
-		}
+		}*/
 	}
 	
 	@Override
